@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
+import path from "path";
+const __dirname = path.resolve();
 
 // Routes
 import indexRoutes from "./routes/index.routes.js";
@@ -15,6 +17,8 @@ const app = express();
 // Settings
 app.set("port", process.env.PORT || 4000);
 app.set("json spaces", 4);
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
 
 // Middlewares
 app.use(

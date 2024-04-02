@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get CRUD</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      .btn-edit,
+      .btn-delete {
+        border: none;
+        background-color: orange;
+        padding: 5px;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .btn-delete {
+        background-color: red;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        text-align: center;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>Usrname</th>
+        <th>Email</th>
+      </tr>
+      <% for (let i = 0; i < dataTable.length; i++) { %>
+      <tr>
+        <td><%= dataTable[i].username %></td>
+        <td><%= dataTable[i].email %></td>
+      </tr>
+      <% } %>
+    </table>
+  </body>
+</html>

@@ -1,6 +1,10 @@
 import Role from "../models/Role.js";
 import User from "../models/User.js";
+import { faker } from "@faker-js/faker";
+
 import { ADMIN_EMAIL, ADMIN_USERNAME, ADMIN_PASSWORD } from "../config.js";
+import bcrypt from "bcryptjs";
+import Employee from "../models/Employee.js";
 
 export const createRoles = async () => {
   try {
@@ -32,7 +36,6 @@ export const createAdmin = async () => {
   // get roles _id
   const roles = await Role.find({ name: { $in: ["admin", "moderator"] } });
 
-  // create a new admin user
   const newUser = await User.create({
     username: ADMIN_USERNAME,
     email: ADMIN_EMAIL,
@@ -43,5 +46,47 @@ export const createAdmin = async () => {
   console.log(`new user created: ${newUser.email}`);
 };
 
+export const create500Employee = async () => {
+  const roleForUser = await Role.find({ name: "user" });
+  console.log(roleForUser);
+
+  for (let i = 0; i < 500; i++) {
+    const newEmployee = await Employee.create({
+      employeeId: i + "",
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      vacationDays: faker.number.int({ min: 0, max: 30 }), // Số ngày nghỉ phép
+      paidToDate: faker.number.int({ min: 0, max: 10000 }), // Số tiền đã thanh toán đến ngày
+      paidLastYear: faker.number.int({ min: 0, max: 10000 }), // Số tiền đã thanh toán trong năm trước
+      payRate: faker.number.float(0.8), // Tỉ lệ thanh toán
+      payRateId: faker.number.int(1), // Mã tỷ lệ thanh toán
+    });
+    console.log(
+      `new employee created: ${newEmployee.firstName} ${newEmployee.lastName}`
+    );
+  }
+};
+
+export const create500Users = async () => {
+  const roleForUser = await Role.find({ name: "user" });
+  console.log(roleForUser);
+
+  const salt = bcrypt.genSaltSync(10);
+  const hashPassword = bcrypt.hashSync("123456", salt);
+  console.log("check hashPassword: ", hashPassword);
+
+  for (let i = 0; i < 500; i++) {
+    const newUser = await User.create({
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      roles: roleForUser.map((role) => role._id),
+    });
+    console.log(`new user created: ${newUser.email}`);
+  }
+};
+
 createRoles();
 createAdmin();
+// create500Users();
+// create500Employee();

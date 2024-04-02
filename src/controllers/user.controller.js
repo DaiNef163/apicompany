@@ -21,23 +21,35 @@ export const createUser = async (req, res) => {
     // saving the new user
     const savedUser = await user.save();
 
-    return res.status(200).json({success: true, data:{
-      _id: savedUser._id,
-      username: savedUser.username,
-      email: savedUser.email,
-      roles: savedUser.roles,
-    }});
+    return res.status(200).json({
+      success: true,
+      data: {
+        _id: savedUser._id,
+        username: savedUser.username,
+        email: savedUser.email,
+        roles: savedUser.roles,
+      },
+    });
   } catch (error) {
-    console.error({success: false, data: error});
+    console.error({ success: false, data: error });
   }
 };
 
 export const getUsers = async (req, res) => {
   const users = await User.find();
-  return res.json({success: true, data: users});
+  return res.json({ success: true, data: users });
 };
 
 export const getUser = async (req, res) => {
   const user = await User.findById(req.params.userId);
-  return res.json({success: true, data: user});
+  return res.json({ success: true, data: user });
+};
+
+export const displayallUser = async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.render("displayUser.ejs", { dataTable: users });
+  } catch (error) {
+    console.log(error);
+  }
 };
