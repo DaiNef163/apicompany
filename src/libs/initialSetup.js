@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 import { ADMIN_EMAIL, ADMIN_USERNAME, ADMIN_PASSWORD } from "../config.js";
 import bcrypt from "bcryptjs";
 import Employee from "../models/Employee.js";
+import Product from "../models/Product.js";
 
 export const createRoles = async () => {
   try {
@@ -86,7 +87,22 @@ export const create500Users = async () => {
   }
 };
 
-createRoles();
-createAdmin();
+export const create500Products = async () => {
+  const roleForUser = await Role.find({ name: "user" });
+  console.log(roleForUser);
+
+  for (let i = 0; i < 190; i++) {
+    const newProduct = await Product.create({
+      name: faker.lorem.words(2),
+      category: faker.commerce.department(),
+      price: faker.commerce.price(),
+    });
+    console.log(`new user created: ${newProduct.name}`);
+  }
+};
+
+// createRoles();
+// createAdmin();
+create500Products();
 // create500Users();
 // create500Employee();
