@@ -103,6 +103,6 @@ export const create500Products = async () => {
 
 // createRoles();
 // createAdmin();
-create500Products();
+// create500Products();
 // create500Users();
 // create500Employee();
