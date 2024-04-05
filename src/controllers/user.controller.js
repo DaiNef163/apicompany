@@ -48,7 +48,7 @@ export const getUser = async (req, res) => {
 export const displayallUser = async (req, res) => {
   try {
     const users = await User.find();
-    return res.render("displayUser.ejs", { dataTable: users });
+    return res.render("_Layout.ejs", { dataTable: users });
   } catch (error) {
     console.log(error);
   }

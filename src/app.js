@@ -18,7 +18,24 @@ const app = express();
 app.set("port", process.env.PORT || 4000);
 app.set("json spaces", 4);
 app.set("view engine", "ejs");
-app.set("views", "./src/views");
+app.set("views", "./src/views/FrontEndEJS");
+
+app.use((req, res, next) => {
+  // Add multiple views directories to app settings
+  app.set("views", ["./src/views/FrontEndEJS", "./src/views/FrontEndEJS/Personal"]);
+  next();
+});
+
+// const path = require('path');
+app.use(express.static('public'));
+
+// // Tiếp tục cấu hình các định tuyến và các middleware khác...
+
+// // Khởi động máy chủ
+// app.listen(4001, () => {
+//     console.log('Server is running on port 4001');
+// });
+
 
 // Middlewares
 app.use(
@@ -26,10 +43,11 @@ app.use(
     // origin: "http://localhost:3000",
   })
 );
-app.use(helmet()); 
+app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 
 // Routes
 app.use("/api", indexRoutes);
