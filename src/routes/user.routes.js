@@ -4,6 +4,8 @@ import {
   getUsers,
   getUser,
   displayallUser,
+  displayDashboard,
+  editUser,
 } from "../controllers/user.controller.js";
 import { isAdmin, verifyToken } from "../middlewares/authJwt.js";
 import { checkExistingUser } from "../middlewares/verifySignup.js";
@@ -19,6 +21,8 @@ const router = Router();
 router.post("/", [checkExistingUser], createUser);
 router.get("/", getUsers);
 router.get("/displayUsers", displayallUser);
+router.get("/displayDashboard", displayDashboard);
+router.get("/editUser", editUser);
 router.get("/:userId", [verifyToken, isAdmin, checkExistingUser], getUser);
 
 export default router;

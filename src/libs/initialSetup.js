@@ -93,9 +93,10 @@ export const create500Products = async () => {
 
   for (let i = 0; i < 190; i++) {
     const newProduct = await Product.create({
-      name: faker.lorem.words(2),
-      category: faker.commerce.department(),
-      price: faker.commerce.price(),
+      name : faker.commerce.productName(),
+      category : faker.commerce.department(),
+      price : faker.datatype.number({ min: 1, max: 1000 }),
+      imgURL : faker.image.imageUrl(),
     });
     console.log(`new user created: ${newProduct.name}`);
   }

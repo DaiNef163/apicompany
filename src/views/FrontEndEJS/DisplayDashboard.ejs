@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin</title>
+    <title>Dashboard</title>
     <link type="text/css" href="./" rel="stylesheet" />
     <link
       type="text/css"
@@ -85,23 +85,23 @@
             <div class="sidebar">
               <ul class="widget widget-menu unstyled">
                 <li class="active">
-                  <a href="http://localhost:4000/api/users/displayUsers#">
+                  <a href="http://localhost:4000/api/users/displayDashboard">
                     <i class="menu-icon icon-dashboard"></i>Dashboard
                   </a>
                 </li>
                 <li>
-                  <a href="~/Personals"
-                    ><i class="menu-icon icon-bullhorn"></i>Personal List
+                  <a href="http://localhost:4000/api/employee/displayEmployee"
+                    ><i class="menu-icon icon-bullhorn"></i>Employee List
                   </a>
                 </li>
                 <li>
-                  <a href="~/BenefitPlans">
-                    <i class="menu-icon icon-tasks"></i>Benefit Plans
+                  <a href="http://localhost:4000/api/products/displayProduct">
+                    <i class="menu-icon icon-tasks"></i>Product List
                   </a>
                 </li>
                 <li>
-                  <a href="~/JobHistory">
-                    <i class="menu-icon icon-inbox"></i>Job History
+                  <a href="http://localhost:4000/api/users/displayUsers">
+                    <i class="menu-icon icon-inbox"></i>User List
                   </a>
                 </li>
               </ul>
@@ -144,7 +144,7 @@
                     <i class="icon-random"></i><b>65%</b>
                     <p class="text-muted">Growth</p> </a
                   ><a href="#" class="btn-box big span4">
-                    <i class="icon-user"></i><b>15</b>
+                    <i class="icon-user"></i><b id ="userCount">userCount</b>
                     <p class="text-muted">New Users</p> </a
                   ><a href="#" class="btn-box big span4">
                     <i class="icon-money"></i><b>15,152</b>
@@ -339,6 +339,10 @@
         reserved.
       </div>
     </div>
+    <script> 
+      let user = [];
+      document.getElementById("userCount").textContent = user.length;
+    </script>
     <script src="/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script
       src="/Scripts/jquery-ui-1.10.1.custom.min.js"

@@ -24,6 +24,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
+
 export const getProductById = async (req, res) => {
   const { productId } = req.params;
 
@@ -53,6 +54,7 @@ export const deleteProductById = async (req, res) => {
   // code 200 is ok too
   res.status(204).json({success: true, data: []});
 };
+
 
 
 // export const search = async (req, res) => {
@@ -162,3 +164,13 @@ export const searchProduct = async (req, res) => {
     res.send([]);
   }
 }
+
+
+export const displayProduct = async (req, res) => {
+  try {
+    const users = await Product.find();
+    return res.render("displayProduct.ejs", { dataTable: users });
+  } catch (error) {
+    console.log(error);
+  }
+};

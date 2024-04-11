@@ -1,10 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Display User</title>
-    <link type="text/css" href="./" rel="stylesheet" />
+    <title>Admin</title>
     <link
       type="text/css"
       href="/bootstrap/css/bootstrap.min.css"
@@ -27,6 +26,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -36,9 +36,8 @@
             data-toggle="collapse"
             data-target=".navbar-inverse-collapse"
           >
-            <i class="icon-reorder shaded"></i>
-          </a>
-          <a class="brand" href="~/">Admin </a>
+            <i class="icon-reorder shaded"></i> </a
+          ><a class="brand" href="~/">Admin </a>
           <div class="nav-collapse collapse navbar-inverse-collapse">
             <ul class="nav nav-icons">
               <li class="active">
@@ -73,8 +72,10 @@
               </li>
             </ul>
           </div>
+          <!-- /.nav-collapse -->
         </div>
       </div>
+      <!-- /navbar-inner -->
     </div>
     <div class="wrapper">
       <div class="container">
@@ -88,8 +89,8 @@
                   </a>
                 </li>
                 <li>
-                  <a href="http://localhost:4000/api/employee/displayEmployee">
-                    <i class="menu-icon icon-bullhorn"></i>Employee List
+                  <a href="http://localhost:4000/api/employee/displayEmployee"
+                    ><i class="menu-icon icon-bullhorn"></i>Employee List
                   </a>
                 </li>
                 <li>
@@ -110,29 +111,30 @@
                     data-toggle="collapse"
                     href="#togglePages"
                   >
-                    <i class="menu-icon icon-cog"></i>
-                    <i class="icon-chevron-down pull-right"></i>
-                    <i class="icon-chevron-up pull-right"></i>
-                    More Pages
+                    <i class="menu-icon icon-cog"> </i
+                    ><i class="icon-chevron-down pull-right"></i
+                    ><i class="icon-chevron-up pull-right"> </i>More Pages
                   </a>
                   <ul id="togglePages" class="collapse unstyled">
                     <li>
-                      <a href="#"><i class="icon-inbox"></i>Login</a>
+                      <a href="#"><i class="icon-inbox"></i>Login </a>
                     </li>
                     <li>
-                      <a href="#"><i class="icon-inbox"></i>Profile</a>
+                      <a href="#"><i class="icon-inbox"></i>Profile </a>
                     </li>
                     <li>
-                      <a href="#"><i class="icon-inbox"></i>All Users</a>
+                      <a href="#"><i class="icon-inbox"></i>All Users </a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <a href="#"><i class="menu-icon icon-signout"></i>Logout</a>
+                  <a href="#"><i class="menu-icon icon-signout"></i>Logout </a>
                 </li>
               </ul>
             </div>
+            <!--/.sidebar-->
           </div>
+          <!--/.span3-->
           <div class="span9">
             <div class="module">
               <div class="module-head">
@@ -144,12 +146,18 @@
                   cellspacing="0"
                   border="0"
                   class="datatable-1 table table-bordered table-striped display"
-                  width="100%"
+                  width="min-width:300px;"
                 >
                   <thead>
-                    <tr>
-                      <th>Username</th>
-                      <th>Email</th>
+                    <tr style="white-space: nowrap;">
+                      <th>ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Vacation Days</th>
+                      <th>paidToDate</th>
+                      <th>paidLastYear</th>
+                      <th>payRate</th>
+                      <!-- <th>payRateId</th> -->
 
                       <th></th>
                     </tr>
@@ -158,8 +166,14 @@
                     <!-- Duyệt qua mỗi phần tử trong mô hình và hiển thị -->
                     <% for (let i = 0; i < dataTable.length; i++) {%>
                     <tr class="odd gradeX">
-                      <td><%= dataTable[i].username %></td>
-                      <td><%= dataTable[i].email %></td>
+                      <td><%= dataTable[i].employeeId%></td>
+                      <td><%= dataTable[i].firstName %></td>
+                      <td><%= dataTable[i].lastName %></td>
+                      <td><%= dataTable[i].vacationDays %></td>
+                      <td><%= dataTable[i].paidToDate %></td>
+                      <td><%= dataTable[i].paidLastYear %></td>
+                      <td><%= dataTable[i].payRate.toFixed(2) %></td>
+                      <!-- <td><%= dataTable[i].payRateId %></td> -->
 
                       <td>
                         <a href="http://localhost:4000/api/users/editUser"
@@ -175,12 +189,11 @@
                 </table>
               </div>
             </div>
-            <!--/.module-->
-
-            <!-- Your content here -->
           </div>
+          <!--/.span9-->
         </div>
       </div>
+      <!--/.container-->
     </div>
     <div class="footer">
       <div class="container">
@@ -188,8 +201,6 @@
         reserved.
       </div>
     </div>
-      <script src="/Scripts/datatables/countUser.js" type="text/javascript"></script>
-
     <script src="/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script
       src="/Scripts/jquery-ui-1.10.1.custom.min.js"

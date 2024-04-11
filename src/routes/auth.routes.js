@@ -22,4 +22,5 @@ router.use((req, res, next) => {
 router.post("/signup", [checkExistingUser, checkExistingRole], signupHandler);
 router.post("/signin", signinHandler);
 router.get("/logout", logoutHandler);
+
 export default router;

@@ -1,6 +1,7 @@
 import {Router} from 'express'
 import pkg from "../../package.json" assert {type: "json"};
 
+
 const router = Router()
 
 router.get("/", (req, res) => {
@@ -12,5 +13,7 @@ router.get("/", (req, res) => {
     author: pkg.author,
   });
 });
+
+
 
 export default router

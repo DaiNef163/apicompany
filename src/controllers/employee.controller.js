@@ -60,7 +60,7 @@ export const getEmployees = async (req, res, next) => {
 export const displayallEmployee = async (req, res) => {
   try {
     const users = await Employee.find();
-    return res.render("displayEmployee.ejs", { dataTable: users });
+    return res.render("displayEmployee1.ejs", { dataTable: users });
   } catch (error) {
     console.log(error);
   }

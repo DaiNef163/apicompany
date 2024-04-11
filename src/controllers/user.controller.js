@@ -48,7 +48,24 @@ export const getUser = async (req, res) => {
 export const displayallUser = async (req, res) => {
   try {
     const users = await User.find();
-    return res.render("_Layout.ejs", { dataTable: users });
+    return res.render("displayUser.ejs", { dataTable: users });
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
+export const displayDashboard = async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.render("displayDashboard.ejs", { dataTable: users });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const editUser = async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.render("editUser.ejs", { dataTable: users });
   } catch (error) {
     console.log(error);
   }
