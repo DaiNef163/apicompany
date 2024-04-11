@@ -156,10 +156,10 @@
                   </thead>
                   <tbody>
                     <!-- Duyệt qua mỗi phần tử trong mô hình và hiển thị -->
-                    <% for (let i = 0; i < dataTable.length; i++) {%>
+                    <% for (let i = 0; i < dataTableUser.length; i++) {%>
                     <tr class="odd gradeX">
-                      <td><%= dataTable[i].username %></td>
-                      <td><%= dataTable[i].email %></td>
+                      <td><%= dataTableUser[i].username %></td>
+                      <td><%= dataTableUser[i].email %></td>
 
                       <td>
                         <a href="http://localhost:4000/api/users/editUser"

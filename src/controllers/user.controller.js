@@ -1,5 +1,7 @@
 import User from "../models/User.js";
 import Role from "../models/Role.js";
+import Employee from "../models/Employee.js";
+import Product from "../models/Product.js";
 
 export const createUser = async (req, res) => {
   try {
@@ -48,7 +50,7 @@ export const getUser = async (req, res) => {
 export const displayallUser = async (req, res) => {
   try {
     const users = await User.find();
-    return res.render("displayUser.ejs", { dataTable: users });
+    return res.render("displayUser.ejs", { dataTableUser: users });
   } catch (error) {
     console.log(error);
   }
@@ -57,7 +59,9 @@ export const displayallUser = async (req, res) => {
 export const displayDashboard = async (req, res) => {
   try {
     const users = await User.find();
-    return res.render("displayDashboard.ejs", { dataTable: users });
+    const employee = await Employee.find();
+    const product = await Product.find();
+    return res.render("displayDashboard.ejs", { dataTableUser: users,dataTableEmployee:employee,dataTableProduct:product });
   } catch (error) {
     console.log(error);
   }
@@ -65,7 +69,7 @@ export const displayDashboard = async (req, res) => {
 export const editUser = async (req, res) => {
   try {
     const users = await User.find();
-    return res.render("editUser.ejs", { dataTable: users });
+    return res.render("editUser.ejs", { dataTableUser: users });
   } catch (error) {
     console.log(error);
   }

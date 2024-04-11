@@ -169,7 +169,7 @@ export const searchProduct = async (req, res) => {
 export const displayProduct = async (req, res) => {
   try {
     const users = await Product.find();
-    return res.render("displayProduct.ejs", { dataTable: users });
+    return res.render("displayProduct.ejs", { dataTableProduct: users });
   } catch (error) {
     console.log(error);
   }

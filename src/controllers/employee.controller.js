@@ -59,8 +59,16 @@ export const getEmployees = async (req, res, next) => {
 
 export const displayallEmployee = async (req, res) => {
   try {
-    const users = await Employee.find();
-    return res.render("displayEmployee1.ejs", { dataTable: users });
+    const employee = await Employee.find();
+    return res.render("displayEmployee1.ejs", { dataTableEmployee: employee });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const displayDashboard = async (req, res) => {
+  try {
+    const employee = await User.find();
+    return res.render("displayDashboard.ejs", { dataTableEmployee: employee});
   } catch (error) {
     console.log(error);
   }
