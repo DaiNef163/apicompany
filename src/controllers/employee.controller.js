@@ -65,6 +65,14 @@ export const displayallEmployee = async (req, res) => {
     console.log(error);
   }
 };
+export const editEmployee = async (req, res) => {
+  try {
+    const employee = await Employee.find();
+    return res.render("editEmployee.ejs", { dataTableEmployee: employee , Employee:employee });
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const displayDashboard = async (req, res) => {
   try {
     const employee = await User.find();

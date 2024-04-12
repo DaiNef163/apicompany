@@ -3,7 +3,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin</title>
+    <title>Dashboard</title>
+    <link type="text/css" href="./" rel="stylesheet" />
     <link
       type="text/css"
       href="/bootstrap/css/bootstrap.min.css"
@@ -59,10 +60,7 @@
             <ul class="nav pull-right">
               <li class="nav-user dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img
-                    src="/images/user.png"
-                    class="nav-avatar"
-                  />
+                  <img src="/images/user.png" class="nav-avatar" />
                   <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
@@ -92,12 +90,12 @@
                   </a>
                 </li>
                 <li>
-                  <a href="~/Personals"
+                  <a href="http://localhost:4000/api/employee/displayEmployee"
                     ><i class="menu-icon icon-bullhorn"></i>Employee List
                   </a>
                 </li>
                 <li>
-                  <a href="~/BenefitPlans">
+                  <a href="http://localhost:4000/api/products/displayProduct">
                     <i class="menu-icon icon-tasks"></i>Product List
                   </a>
                 </li>
@@ -138,76 +136,70 @@
             <!--/.sidebar-->
           </div>
           <!--/.span3-->
+
           <div class="span9">
-            <div class="content">
-              <div class="module">
-                <div class="module-head">
-                  <h3>Edit Personal</h3>
-                </div>
-                <form
-                  class="form-horizontal row-fluid"
-                  action="/Personals/Edit"
-                  method="post"
-                >
-                  <div class="module-body">
-                    <input
-                      type="hidden"
-                      name="Employee_ID"
-                      value="{{ Employee_ID }}"
-                    />
-
-                    <div class="control-group">
-                      <label class="control-label col-md-2" for="username"
-                        >Username</label
-                      >
-                      <div class="controls">
-                        <input
-                          type="text"
-                          id="username"
-                          name="username"
-                          class="span6"
-                          value="<%=users.username %>"
-                        />
-                        <span class="text-danger"></span>
-                      </div>
-                    </div>
-                    <div class="control-group">
-                      <label class="control-label col-md-2" for="email"
-                        >Email</label
-                      >
-                      <div class="controls">
-                        <input
-                          type="text"
-                          id="email"
-                          name="email"
-                          class="span6"
-                          value="<%=users.email %>"
-                        />
-                        <span class="text-danger"></span>
-                      </div>
-                    </div>
-
-                    <!-- Thêm các control group khác tương tự -->
-
-                    <div class="control-group">
-                      <div class="col-md-offset-2 controls">
-                        <input
-                          type="submit"
-                          value="Save"
-                          class="btn btn-default"
-                        />
-                        <a href="/Personals/Index" class="btn btn-default"
-                          >Back to List</a
-                        >
-                      </div>
+            <div class="module">
+              <div class="module-head">
+                <h3>Edit User</h3>
+              </div>
+              <!-- Sử dụng thẻ form trong HTML để bắt đầu form -->
+              <form method="post">
+                <!-- Thêm mã JavaScript để chống CSRF -->
+                <input
+                  name="__RequestVerificationToken"
+                  type="hidden"
+                  value="..."
+                />
+                <div class="module-body">
+                  <div class="control-group">
+                    <label class="control-label col-md-2" for="username"
+                      >User Name</label
+                    >
+                    <div class="controls">
+                      <input
+                        class="span6"
+                        id="username"
+                        type="text"
+                        name="username"
+                        value="<%= User.username%>"
+                      />
                     </div>
                   </div>
-                </form>
-              </div>
+                  <div class="control-group">
+                    <label class="control-label col-md-2" for="email"
+                      >Email</label
+                    >
+                    <div class="controls">
+                      <input
+                        class="span6"
+                        id="email"
+                        type="text"
+                        name="email"
+                        value="<%= User.email%>"
+                      />
+                    </div>
+                  </div>
+                  <!-- Các control-group khác -->
+                  <!-- ... -->
+                  <div class="control-group">
+                    <div class="col-md-offset-2 controls">
+                      <input
+                        type="submit"
+                        value="Save"
+                        class="btn btn-default"
+                      />
+                      <!-- Thêm link để quay lại danh sách -->
+                      <a href="http://localhost:4000/api/users/displayUsers" class="btn btn-default"
+                        >Back to List</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-            <!--/.content-->
           </div>
-          <!--/.span9-->
+          <!--/.content-->
+          <!-- span333 -->
         </div>
       </div>
       <!--/.container-->
@@ -218,6 +210,7 @@
         reserved.
       </div>
     </div>
+
     <script src="/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script
       src="/Scripts/jquery-ui-1.10.1.custom.min.js"
@@ -234,6 +227,10 @@
     ></script>
     <script
       src="/Scripts/datatables/jquery.dataTables.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/Scripts/datatables/countData.js"
       type="text/javascript"
     ></script>
     <script src="/Scripts/common.js" type="text/javascript"></script>

@@ -174,3 +174,11 @@ export const displayProduct = async (req, res) => {
     console.log(error);
   }
 };
+export const editProduct = async (req, res) => {
+  try {
+    const users = await Product.find();
+    return res.render("editProduct.ejs", { dataTableProduct: users,Product:users });
+  } catch (error) {
+    console.log(error);
+  }
+};

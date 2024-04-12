@@ -7,6 +7,7 @@ import {
   getProductById,
   searchProduct,
   displayProduct,
+  editProduct,
 
   // displayProduct
 } from "../controllers/products.controller.js";
@@ -26,6 +27,7 @@ const router = Router();
 router.post("/", createProduct);
 router.get("/", getProducts);
 router.get("/displayProduct",displayProduct);
+router.get("/editProduct",editProduct);
 router
   .route('/:productId')
   .get(getProductById)

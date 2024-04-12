@@ -69,8 +69,10 @@ export const displayDashboard = async (req, res) => {
 export const editUser = async (req, res) => {
   try {
     const users = await User.find();
-    return res.render("editUser.ejs", { dataTableUser: users });
+    return res.render("editUser.ejs", { dataTableUser: users , User: users });
   } catch (error) {
     console.log(error);
   }
 };
+
+
