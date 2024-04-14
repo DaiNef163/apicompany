@@ -51,7 +51,7 @@ export const create500Employee = async () => {
   const roleForUser = await Role.find({ name: "user" });
   console.log(roleForUser);
 
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < 1; i++) {
     const newEmployee = await Employee.create({
       employeeId: i + "",
       firstName: faker.person.firstName(),
@@ -72,11 +72,11 @@ export const create500Users = async () => {
   const roleForUser = await Role.find({ name: "user" });
   console.log(roleForUser);
 
-  const salt = bcrypt.genSaltSync(10);
-  const hashPassword = bcrypt.hashSync("123456", salt);
-  console.log("check hashPassword: ", hashPassword);
+  // const salt = bcrypt.genSaltSync(10);
+  // const hashPassword = bcrypt.hashSync("123456", salt);
+  // console.log("check hashPassword: ", hashPassword);
 
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < 1; i++) {
     const newUser = await User.create({
       username: faker.internet.userName(),
       email: faker.internet.email(),
@@ -91,7 +91,7 @@ export const create500Products = async () => {
   const roleForUser = await Role.find({ name: "user" });
   console.log(roleForUser);
 
-  for (let i = 0; i < 190; i++) {
+  for (let i = 0; i < 1; i++) {
     const newProduct = await Product.create({
       name : faker.commerce.productName(),
       category : faker.commerce.department(),

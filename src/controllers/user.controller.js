@@ -74,5 +74,13 @@ export const editUser = async (req, res) => {
     console.log(error);
   }
 };
+export const deleteUser = async (req, res) => {
+  try {
+    const users = await User.findOne();
+    return res.render("deleteUser.ejs", { dataTableUser: users , User: users });
+  } catch (error) { 
+    console.log(error);
+  }
+};
 
 

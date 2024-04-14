@@ -6,6 +6,7 @@ import {
   displayallUser,
   displayDashboard,
   editUser,
+  deleteUser,
 } from "../controllers/user.controller.js";
 import { isAdmin, verifyToken } from "../middlewares/authJwt.js";
 import { checkExistingUser } from "../middlewares/verifySignup.js";
@@ -23,6 +24,7 @@ router.get("/", getUsers);
 router.get("/displayUsers", displayallUser);
 router.get("/displayDashboard", displayDashboard);
 router.get("/editUser", editUser);
+router.get("/deleteUser", deleteUser);
 router.get("/:userId", [verifyToken, isAdmin, checkExistingUser], getUser);
 
 export default router;

@@ -5,3 +5,4 @@ import "./libs/initialSetup.js";
 
 app.listen(PORT);
 console.log("Server on port", app.get("port"));
+
