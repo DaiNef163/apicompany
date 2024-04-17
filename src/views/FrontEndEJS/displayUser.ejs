@@ -136,7 +136,10 @@
           <div class="span9">
             <div class="module">
               <div class="module-head">
-                <h3>User - <a href="/Create">Create New</a></h3>
+                <h3>
+                  <div id="dataTableUser" style="display: inline;">User</div>
+                  - <a href="/Create">Create New</a>
+                </h3>
               </div>
               <div class="module-body table">
                 <table
@@ -190,38 +193,13 @@
       </div>
     </div>
 
-
-    <script>
-      // Kết nối tới máy chủ sử dụng Socket.IO
-      const socket = io();
-  
-      // Lắng nghe sự kiện 'userData' từ máy chủ
-      socket.on('userData', (data) => {
-        // Cập nhật dữ liệu trên trang web khi có sự thay đổi
-        updateTable(data);
-      });
-  
-      // Gửi yêu cầu lấy dữ liệu ban đầu từ máy chủ
-      socket.emit('getData');
-  
-      // Hàm cập nhật dữ liệu trên trang web
-      function updateTable(data) {
-        const dataTable = document.getElementById('dataTableUser');
-        dataTable.innerHTML = ''; // Xóa dữ liệu cũ
-  
-        // Duyệt qua mỗi phần tử trong dữ liệu và thêm vào bảng
-        data.forEach(user => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${user.username}</td>
-            <td>${user.email}</td>
-          `;
-          dataTable.appendChild(row);
-        });
-      }
-    </script>
-      <script src="/Scripts/datatables/countUser.js" type="text/javascript"></script>
-
+    <script
+      src="/Scripts/datatables/countUser.js"
+      type="text/javascript"
+    ></script>
+    <script src="Scripts/socketIO/socketData.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script
       src="/Scripts/jquery-ui-1.10.1.custom.min.js"
