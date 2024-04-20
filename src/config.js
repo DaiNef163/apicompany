@@ -1,6 +1,8 @@
 import { config } from "dotenv";
 config();
 import sql from "mssql";
+import express from "express";
+let app = express();
 
 export const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/apicompany";
@@ -11,119 +13,39 @@ export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@localhost";
 export const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
-export const sqlConfig = {
-  user: process.env.DB_USER || "sa",
-  password: process.env.DB_PASS || "123456",
-  server: process.env.DB_HOST || "DESKTOP-USCQBCD\\HOAINAM",
-  database: process.env.DB_DATABASE || "HR",
-  // options: {
-  //   encrypt: true, // for azure
-  //   trustServerCertificate: true,
-  //   enableArithAbort: true,
-  //   // port: parseInt(process.env.DB_PORT) || 1433,
-  // },
-};
-async function connectToSqlServer() {
+export const PORT1 = process.env.PORT1 || 5000;
+export const SERVER = process.env.DB_SERVER || `DESKTOP-USCQBCD\\HOAINAM`;
+export const DATABASE = process.env.DB_DATABASE || "HR";
+
+app.get("/", async (req, res) => {
   try {
-    await sql.connect(sqlConfig);
-    console.log("Connected to SQL Server");
-  } catch (error) {
-    console.error("Error connecting to SQL Server:", error);
+    const dbConfig = {
+      server: "DESKTOP-USCQBCD\\HOAINAM",
+      user: "sa",
+      password: "1",
+      database: "HR",
+      options: {
+        trustedConnection: true,
+        encrypt: true,
+        trustServerCertificate: true,
+      },
+    };
+
+    console.log("Connecting to MSSQL server...");
+    await sql.connect(dbConfig);
+    console.log("Connected to MSSQL server successfully.");
+    const request = new sql.Request();
+    // Truy vấn cơ sở dữ liệu và lấy các bản ghi
+    const result = await request.query("select * from dbo.Personal");
+    res.send(result.recordset);
+  } catch (err) {
+    console.error("Database query error:", err.message);
+    res.status(500).json({ err: "Internal server error" });
   }
-}
+});
 
-// Call the function to connect to SQL Server
-connectToSqlServer();
-// import sql from "mssql/msnodesqlv8";
+app.listen(PORT1, () => {
+  console.log(`Server is running on port ${PORT1}`);
+});
 
-// config for your database
 
-// var sqlConfig = {
-//   user: "root",
-//   password: "",
-//   server: "DESKTOP-USCQBCD", // chỉ định tên máy tính
-//   database: "HR",
-//   port: "1433",
-//   dialect: "mssql",
-//   dialectOptions: {
-//     instanceName: "HOAINAM", // chỉ định tên thực thể
-//   },
-// };
-
-// (async () => {
-//   try {
-//     // connect to your database
-
-//     let pool = await sql.connect(sqlConfig);
-
-//     // create Request object
-
-//     const request = pool.request();
-
-//     // query to the database and get the records
-
-//     request.query("select * from Employment", (err, result) => {
-//       console.dir(result);
-//     });
-//   } catch (err) {
-//     // ... error checks
-
-//     console.log("This is Error");
-
-//     console.log(err);
-
-//     console.dir(err);
-//   }
-// })();
-
-// sql.on("error", (err) => {
-//   // ... error handler
-
-//   console.log("This is Error handler");
-// });
-
-// const sqlConfig = {
-//   authentication: {
-//     type: 'default',
-//     options: {
-//       userName: "", // Bỏ trống user name để sử dụng Windows authentication
-//       password: "" // Bỏ trống password để sử dụng Windows authentication
-//     }
-//   },
-//   server: process.env.DB_HOST || "DESKTOP-USCQBCD\\HOAINAM", // Set default server to "DESKTOP-USCQBCD" if not provided
-//   database: process.env.DB_DATABASE || "HR", // Make sure to provide database name in the environment
-//   options: {
-//     port: parseInt(process.env.DB_PORT) || 1433 // Parse port to integer and set default to 1433 if not provided
-//   }
-// };
-
-// const poolPromise = new sql.ConnectionPool(sqlConfig)
-// .connect()
-// .then((pool) => {
-//   console.log('Connected to MSSQL');
-//   return pool;
-// })
-// .catch((err) => console.log('Database Connection Failed! Bad Config: ', err));
-
-// export  {
-// sqlConfig,
-// poolPromise,
-// }
-
-// let sqlConfig = {
-//   connectionString: 'Driver=SQL Server;Server=YOURINSTANCE\\SQLEXPRESS;Database=master;Trusted_Connection=true;'
-// };
-// sql.connect(sqlConfig, err => {
-//   new sql.Request().query('SELECT 1 AS justAnumber', (err, result) => {
-//     console.log(".:The Good Place:.");
-//     if(err) { // SQL error, but connection OK.
-//       console.log("  Shirtballs: "+ err);
-//     } else { // All is rosey in your garden.
-//       console.dir(result);
-//     };
-//   });
-// });
-// sql.on('error', err => { // Connection borked.
-//   console.log(".:The Bad Place:.");
-//   console.log("  Fork: "+ err);
-// });

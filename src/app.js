@@ -46,6 +46,7 @@ import employeeRoutes from "./routes/employee.routes.js";
 
 // Settings
 app.set("port", process.env.PORT || 4000);
+app.set("port1", process.env.PORT1 || 5000);
 app.set("json spaces", 4);
 app.set("view engine", "ejs");
 app.set("views", "./src/views/FrontEndEJS");
