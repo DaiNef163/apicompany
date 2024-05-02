@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Page</title>
+  <link type="text/css" href="./" rel="stylesheet" />
+  <link type="text/css" href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link type="text/css" href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+  <link type="text/css" href="/css/theme.css" rel="stylesheet" />
+  <link type="text/css" href="/images/icons/css/font-awesome.css" rel="stylesheet" />
+  <link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <%= JSON.stringify(employee) %>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+            <i class="icon-reorder shaded"></i> </a><a class="brand" href="~/">Admin </a>
+          <div class="nav-collapse collapse navbar-inverse-collapse">
+            <ul class="nav nav-icons">
+              <li class="active">
+                <a href="#"><i class="icon-envelope"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="icon-eye-open"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="icon-bar-chart"></i></a>
+              </li>
+            </ul>
+            <form class="navbar-search pull-left input-append" action="#">
+              <input type="text" class="span3" />
+              <button class="btn" type="button">
+                <i class="icon-search"></i>
+              </button>
+            </form>
+            <ul class="nav pull-right">
+              <li class="nav-user dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="/images/user.png" class="nav-avatar" />
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Your Profile</a></li>
+                  <li><a href="#">Edit Profile</a></li>
+                  <li><a href="#">Account Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- /.nav-collapse -->
+        </div>
+      </div>
+      <!-- /navbar-inner -->
+    </div>
+    <div class="wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="span3">
+            <div class="sidebar">
+              <ul class="widget widget-menu unstyled">
+                <li class="active">
+                  <a href="http://localhost:4000/api/users/displayDashboard">
+                    <i class="menu-icon icon-dashboard"></i>Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="http://localhost:4000/api/employee/displayEmployee"><i
+                      class="menu-icon icon-bullhorn"></i>Employee List
+                  </a>
+                </li>
+                <li>
+                  <a href="http://localhost:4000/api/products/displayProduct">
+                    <i class="menu-icon icon-tasks"></i>Product List
+                  </a>
+                </li>
+                <li>
+                  <a href="http://localhost:4000/api/users/displayUsers">
+                    <i class="menu-icon icon-inbox"></i>User List
+                  </a>
+                </li>
+              </ul>
+              <ul class="widget widget-menu unstyled">
+                <li>
+                  <a class="collapsed" data-toggle="collapse" href="#togglePages">
+                    <i class="menu-icon icon-cog"> </i><i class="icon-chevron-down pull-right"></i><i
+                      class="icon-chevron-up pull-right"> </i>More Pages
+                  </a>
+                  <ul id="togglePages" class="collapse unstyled">
+                    <li>
+                      <a href="#"><i class="icon-inbox"></i>Login </a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="icon-inbox"></i>Profile </a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="icon-inbox"></i>All Users </a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><i class="menu-icon icon-signout"></i>Logout </a>
+                </li>
+              </ul>
+            </div>
+            <!--/.sidebar-->
+          </div>
+          <!--/.span3-->
+
+          <div class="span9">
+            <div class="module">
+              <div class="module-head">
+                <h3>Delete Employee</h3>
+              </div>
+              <!-- Sử dụng thẻ form trong HTML để bắt đầu form -->
+              <form action="/api/employee/delete-employee/<%= employee.employeeId %>" method="POST">
+                <!-- Thêm mã JavaScript để chống CSRF -->
+                <div class="module-body">
+                  <div class="control-group">
+                    <div class="controls">
+                      <label style="display: inline;" class="control-label col-md-2" for="username">ID : </label>
+                          <span><%= employee.employeeId %> </span>
+                      </div>
+                  </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <label style="display: inline;" class="control-label col-md-2" for="username">First Name : </label>
+                            <span><%= employee.firstName %> </span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <label style="display: inline;"  class="control-label col-md-2" for="email">Last Name : </label>
+                            <%= employee.lastName %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <label style="display: inline;"  class="control-label col-md-2" for="email">vacationDays : </label>
+                            <%= employee.vacationDays %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <label style="display: inline;"  class="control-label col-md-2" for="email">paidToDate : </label>
+                            <%= employee.paidToDate %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <label style="display: inline;"  class="control-label col-md-2" for="email">paidLastYear : </label>
+                            <%= employee.paidLastYear %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <label style="display: inline;"  class="control-label col-md-2" for="email">payRate : </label>
+                            <%= employee.payRate %>
+                        </div>
+                    </div>
+                    <!-- Các control-group khác -->
+                    <!-- ... -->
+                    <div class="control-group">
+                        <div class="col-md-offset-2 controls">
+                            <button>Delete</button>
+                            <!-- Thêm link để quay lại danh sách -->
+                            <a href="/api/employee/displayEmployee" class="btn btn-default">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            </div>
+          </div>
+          <!--/.content-->
+          <!-- span333 -->
+        </div>
+      </div>
+      <!--/.container-->
+    </div>
+    <div class="footer">
+      <div class="container">
+        <b class="copyright">&copy; 2014 Admin - DaoNguyen </b>All rights
+        reserved.
+      </div>
+    </div>
+
+    <script src="/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/Scripts/flot/jquery.flot.js" type="text/javascript"></script>
+    <script src="/Scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="/Scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="/Scripts/datatables/countData.js" type="text/javascript"></script>
+    <script src="/Scripts/common.js" type="text/javascript"></script>
+</body>
+
+</html>

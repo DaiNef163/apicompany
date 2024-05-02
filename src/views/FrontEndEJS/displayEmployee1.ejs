@@ -202,12 +202,7 @@
                         <a href="/api/employee/editEmployee/<%= dataTableEmployee[i].employeeId%>">Edit</a>
                         |
                         <!--<a href="/Details?id=@item.Employee_ID">Details</a> |-->
-                        <button
-                          class="btnDelete"
-                          data-id="<%= dataTableEmployee[i].employeeId%>"
-                        >
-                          Delete
-                        </button>
+                        <a href="/api/employee/deleteEmployee/<%= dataTableEmployee[i].employeeId%>">Delete</a>
                       </td>
                     </tr>
                     <% } %>

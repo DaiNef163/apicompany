@@ -6,6 +6,8 @@ import {
   displayallEmployee,
   editEmployee,
   postEditEmployee,
+  postDeleteEmployee,
+  deleteEmployee,
 
 } from "../controllers/employee.controller.js";
 import { isAdmin, verifyToken } from "../middlewares/authJwt.js";
@@ -19,6 +21,10 @@ router.get("/displayEmployee", displayallEmployee);
 
 router.get("/editEmployee/:id", editEmployee);
 router.post("/update-employee/:id", postEditEmployee);
+
+
+router.get("/deleteEmployee/:id", deleteEmployee);
+router.post("/delete-employee/:id", postDeleteEmployee);
 // router.post('/update-employee',getpostEditEmployee)
 // router.post("/", [verifyToken, isAdmin, checkExistingUser], createEmployee);
 // router.get("/", [verifyToken, isAdmin, checkExistingUser], getEmployees);

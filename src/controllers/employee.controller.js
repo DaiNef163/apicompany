@@ -93,7 +93,6 @@ export const postEditEmployee = async (req, res) => {
       payRate,
     } = req.body;
 
-
     const employee = await Employee.findOneAndUpdate(
       { employeeId: employeeId },
       { firstName, lastName, vacationDays, paidToDate, paidLastYear, payRate },
@@ -104,7 +103,42 @@ export const postEditEmployee = async (req, res) => {
     } else {
       return res.redirect("/api/employee/displayEmployee");
     }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
 
+export const deleteEmployee = async (req, res) => {
+  try {
+    const employeeId = req.params.id; // Lấy employeeId từ req.params
+    const employee = await Employee.findOne({ employeeId: employeeId }); // Tìm nhân viên dựa trên employeeId
+
+    return res.render("deleteEmployee.ejs", {
+      employee: employee,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postDeleteEmployee = async (req, res) => {
+  try {
+    const employeeId = req.params?.id;
+    if (!employeeId) {
+      return res.status(404).json({ message: "Employee Id not found!" });
+    }
+
+    const employee = await Employee.findOneAndDelete(
+      { employeeId: employeeId },
+    );
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    } else {
+      return res.redirect("/api/employee/displayEmployee");
+    }
   } catch (error) {
     console.log(error);
     return res
