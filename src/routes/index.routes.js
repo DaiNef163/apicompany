@@ -1,8 +1,8 @@
-import {Router} from 'express'
-import pkg from "../../package.json" assert {type: "json"};
+import { Router } from "express";
+import pkg from "../../package.json" assert { type: "json" };
 
 
-const router = Router()
+const router = Router();
 
 router.get("/", (req, res) => {
   res.json({
@@ -15,5 +15,4 @@ router.get("/", (req, res) => {
 });
 
 
-
-export default router
+export default router;

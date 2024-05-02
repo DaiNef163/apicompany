@@ -3,36 +3,11 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import path from "path";
-import http from "http";
-import { Server as SocketIOServer } from "socket.io";
+
 
 const __dirname = path.resolve();
 
 const app = express();
-const Server = http.createServer(app);
-const io = new SocketIOServer(Server);
-
-// const io = new SocketIOServer({
-//   cors:{
-//     origin:"*",
-//   }
-// });
-// io.on("connection",)
-
-io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-});
-const PORT = process.env.PORT || 3000;
-Server.listen(PORT, () => {
-  console.log(`U(socket)Server is running on port ${PORT}`);
-});
-
-function dataChange(){
-  io.emit("user datachange")
-}
 
 
 // Routes
@@ -58,8 +33,11 @@ app.use((req, res, next) => {
 });
 
 // const path = require('path');
+
 app.use(express.static('public'));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // // Tiếp tục cấu hình các định tuyến và các middleware khác...
 
 // // Khởi động máy chủ
