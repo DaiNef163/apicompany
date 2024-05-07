@@ -10,12 +10,16 @@ const __dirname = path.resolve();
 const app = express();
 
 
+
 // Routes
 import indexRoutes from "./routes/index.routes.js";
 import productRoutes from "./routes/products.routes.js";
 import usersRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import employeeRoutes from "./routes/employee.routes.js";
+ 
+
+
 
 // const app = express();
 
@@ -42,15 +46,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // // Khởi động máy chủ
 // app.listen(4001, () => {
-//     console.log('Server is running on port 4001');
-// });
+  //     console.log('Server is running on port 4001');
+  // });
+  
 
 
-// Middlewares
-app.use(
-  cors({
-    // origin: "http://localhost:3000",
-  })
+
+
+  // Middlewares
+  app.use(
+    cors({
+      // origin: "http://localhost:3000",
+    })
 );
 app.use(helmet());
 app.use(morgan("dev"));

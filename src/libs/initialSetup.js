@@ -51,7 +51,7 @@ export const create500Employee = async () => {
   const roleForUser = await Role.find({ name: "user" });
   console.log(roleForUser);
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     const newEmployee = await Employee.create({
       employeeId: i,
       firstName: faker.person.firstName(),
@@ -93,10 +93,10 @@ export const create500Products = async () => {
 
   for (let i = 0; i < 1; i++) {
     const newProduct = await Product.create({
-      name : faker.commerce.productName(),
-      category : faker.commerce.department(),
-      price : faker.datatype.number({ min: 1, max: 1000 }),
-      imgURL : faker.image.imageUrl(),
+      name: faker.commerce.productName(),
+      category: faker.commerce.department(),
+      price: faker.datatype.number({ min: 1, max: 1000 }),
+      imgURL: faker.image.imageUrl(),
     });
     console.log(`new user created: ${newProduct.name}`);
   }
