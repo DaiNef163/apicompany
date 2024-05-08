@@ -27,28 +27,7 @@
     />
     <script src="/Scripts/datatables/ajax.js" type="text/javascript"></script>
   </head>
-  <script>
-    $(document).ready(function () {
-      $(".btnDelete").click(function () {
-        const id = $(this).attr("data-id");
-        if (confirm(`Are you sure to delete this tutorial, id = ${id}`)) {
-          $.ajax({
-            url: `${window.location.origin}/api/displayEmployee${id}`,
-            method: "DELETE",
-            success: (result) => {
-              console.log(result);
-              $(this).closest("tr").remove();
-            },
-            error: function (error) {
-              console.log(">>> ajax error: ", error);
-            },
-          });
-        } else {
-          // Do nothing!
-        }
-      });
-    });
-  </script>
+
 
   <body>
     <div class="navbar navbar-fixed-top">

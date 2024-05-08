@@ -21,6 +21,7 @@
         }
     </style>
 </head>
+<%= JSON.stringify(employees) %>
 <body>
     <div id="employee">
         <table
@@ -64,12 +65,12 @@
             <td><%= employees[i].City %></td>
 
 
-            <!-- <td>
+            <td>
               <a href="/api/employee/editEmployee/<%= employees[i].employeeId%>">Edit</a>
               |
 
               <a href="/api/employee/deleteEmployee/<%= employees[i].employeeId%>">Delete</a>
-            </td> -->
+            </td>
             
           </tr>
           <% } %>
