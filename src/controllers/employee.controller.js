@@ -62,23 +62,43 @@ export const getEmployees = async (req, res, next) => {
 
 export const displayallEmployee = async (req, res) => {
   try {
+    console.log("sql connecting......");
     const employee = await Employee.find();
-
-    return res.render("displayEmployee1.ejs", { dataTableEmployee: employee });
-  } catch (error) {
-    console.log(error);
+    let pool = await sql.connect(dbConfig);
+    let result = await pool.request().query("select * from Personal"); // subject is my database table name
+    const hr = result.recordsets[0];
+    const data = [];
+    for (let i = 0; i < employee.length; i++) {
+      for (let j = 0; j < result.recordsets[0].length; j++) {
+        if (employee[i].employeeId == hr[j].Employee_ID) {
+          data.push({ ...hr[j], ...employee[i]._doc });
+        }
+      }
+    }
+    res.render("displayEmployee1.ejs", { dataTableEmployee: data });
+  } catch (err) {
+    console.log(err);
   }
 };
 export const editEmployee = async (req, res) => {
   try {
-    const employeeId = req.params.id; // Lấy employeeId từ req.params
-    const employee = await Employee.findOne({ employeeId: employeeId }); // Tìm nhân viên dựa trên employeeId
+    console.log("sql connecting......");
+    const employeeId = req.params.id;
+    const employee = await Employee.findOne({ employeeId: employeeId });
 
-    return res.render("editEmployee.ejs", {
-      employee: employee,
-    });
-  } catch (error) {
-    console.log(error);
+    let pool = await sql.connect(dbConfig);
+    let result = await pool
+      .request()
+      .input("employeeId", sql.Int, employeeId) // Đưa vào giá trị của ID nhân viên
+      .query("SELECT * FROM Personal WHERE Employee_ID = @employeeId");
+
+    const hr = result.recordsets[0];
+    const data = hr.map(record => ({ ...record, ...employee._doc }));
+
+    console.log(data);
+    res.render("editEmployee.ejs", { employee: data[0] });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -102,6 +122,10 @@ export const postEditEmployee = async (req, res) => {
       { firstName, lastName, vacationDays, paidToDate, paidLastYear, payRate },
       { new: true }
     );
+
+
+
+    
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     } else {
@@ -160,8 +184,6 @@ export const displayDashboard = async (req, res) => {
   }
 };
 
-
-
 // (async function () {
 //   try {
 //     console.log("sql connecting......");
@@ -183,52 +205,73 @@ export const displayDashboard = async (req, res) => {
 //   }
 // })();
 
-
-  // (async function () {
-  //   try {
-  //     console.log("sql connecting......");
-  //     const employee = await Employee.find();
-  //     let pool = await sql.connect(dbConfig);
-  //     let result = await pool.request().query("select * from Personal"); // subject is my database table name
-  //     const hr = result.recordsets[0];
-  //     const data = [];
-  //     for (let i = 0; i < employee.length; i++) {
-  //       for (let j = 0; j < result.recordsets[0].length; j++) {
-  //         if (employee[i].employeeId == hr[j].Employee_ID ) {
-  //           data.push({ ...hr[j], ...employee[i]._doc });
-  //         }
-  //       }
-  //     }
-  //     console.log(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // })();
-
-  // export const mergeData = async (req,res) =>{
-    
-  // } 
-
-
-export const testdisplay = async (req, res) => {
-
-    try {
-      console.log("sql connecting......");
-      const employee = await Employee.find();
-      let pool = await sql.connect(dbConfig);
-      let result = await pool.request().query("select * from Personal"); // subject is my database table name
-      const hr = result.recordsets[0];
-      const data = [];
-      for (let i = 0; i < employee.length; i++) {
-        for (let j = 0; j < result.recordsets[0].length; j++) {
-          if (employee[i].employeeId == hr[j].Employee_ID ) {
-            data.push({ ...hr[j], ...employee[i]._doc });
-          }
+export const mergeData = async (req, res) => {
+  try {
+    console.log("sql connecting......");
+    const employee = await Employee.find();
+    let pool = await sql.connect(dbConfig);
+    let result = await pool.request().query("select * from Personal"); // subject is my database table name
+    const hr = result.recordsets[0];
+    const data = [];
+    for (let i = 0; i < employee.length; i++) {
+      for (let j = 0; j < result.recordsets[0].length; j++) {
+        if (employee[i].employeeId == hr[j].Employee_ID) {
+          data.push({ ...hr[j], ...employee[i]._doc });
         }
       }
-      res.render("testdisplay.ejs",{employees:data})
-    } catch (err) {
-      console.log(err);
     }
-  
+    res.render("testdisplay.ejs", { employees: data });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+(async function () {
+  try {
+    console.log("sql connecting......");
+    const employee = await Employee.find();
+    let pool = await sql.connect(dbConfig);
+    let result = await pool.request().query("select * from Personal"); // subject is my database table name
+    const hr = result.recordsets[0];
+    const data = [];
+    for (let i = 0; i < employee.length; i++) {
+      for (let j = 0; j < result.recordsets[0].length; j++) {
+        if (employee[i].employeeId == hr[j].Employee_ID) {
+          data.push({ ...hr[j], ...employee[i]._doc });
+        }
+      }
+    }
+    // console.log(employee);
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+export const testdisplay = async (req, res) => {
+  try {
+    console.log("sql connecting......");
+    const employee = await Employee.findOne({ employeeId: 1 }); // Lấy thông tin nhân viên có ID là 1 từ đối tượng Employee
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+    let pool = await sql.connect(dbConfig);
+    let result = await pool
+      .request()
+      .input("employeeId", sql.Int, 1) // Sử dụng ID cụ thể để truy vấn dữ liệu cho nhân viên có ID là 1
+      .query("select * from Personal"); // subject is my database table name
+    const hr = result.recordsets[0];
+    const data = [];
+    for (let i = 0; i < employee.length; i++) {
+      for (let j = 0; j < result.recordsets[0].length; j++) {
+        if (employee[i].employeeId == hr[j].Employee_ID) {
+          data.push({ ...hr[j], ...employee[i]._doc });
+        }
+      }
+    }
+    res.render("testdisplay.ejs", { employees: data });
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
