@@ -31,7 +31,7 @@ const EmployeeSchema = new mongoose.Schema({
       },
       payRateId:{
         type: Number,
-        required: true,
+
       }
     },
       {

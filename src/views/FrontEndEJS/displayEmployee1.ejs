@@ -28,6 +28,7 @@
     <script src="/Scripts/datatables/ajax.js" type="text/javascript"></script>
   </head>
 
+  <!-- <%= JSON.stringify(dataTableEmployee) %> -->
 
   <body>
     <div class="navbar navbar-fixed-top">
@@ -140,7 +141,7 @@
           <div class="span9">
             <div class="module">
               <div class="module-head">
-                <h3>Employee - <a href="/Create">Create New</a></h3>
+                <h3>Employee - <a href="/api/employee/create">Create New</a></h3>
               </div>
               <div class="module-body table">
                 <table
@@ -178,10 +179,16 @@
                       <!-- <td><%= dataTableEmployee[i].payRateId %></td> -->
 
                       <td>
-                        <a href="/api/employee/editEmployee/<%= dataTableEmployee[i].employeeId%>">Edit</a>
+                        <a
+                          href="/api/employee/editEmployee/<%= dataTableEmployee[i].employeeId%>"
+                          >Edit</a
+                        >
                         |
                         <!--<a href="/Details?id=@item.Employee_ID">Details</a> |-->
-                        <a href="/api/employee/deleteEmployee/<%= dataTableEmployee[i].employeeId%>">Delete</a>
+                        <a
+                          href="/api/employee/deleteEmployee/<%= dataTableEmployee[i].employeeId%>"
+                          >Delete</a
+                        >
                       </td>
                     </tr>
                     <% } %>
