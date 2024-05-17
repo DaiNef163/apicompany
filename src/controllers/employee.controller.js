@@ -213,14 +213,22 @@
   };
   export const deleteEmployee = async (req, res) => {
     try {
-      const employeeId = req.params.id; // Lấy employeeId từ req.params
-      const employee = await Employee.findOne({ employeeId: employeeId }); // Tìm nhân viên dựa trên employeeId
+      const employeeId = req.params.id;
+      const employee = await Employee.findOne({ employeeId: employeeId });
 
-      return res.render("deleteEmployee.ejs", {
-        employee: employee,
-      });
-    } catch (error) {
-      console.log(error);
+      let pool = await sql.connect(dbConfig);
+      let result = await pool
+        .request()
+        .input("employeeId", sql.Int, employeeId) // Đưa vào giá trị của ID nhân viên
+        .query("SELECT * FROM Personal WHERE Employee_ID = @employeeId");
+
+      const hr = result.recordsets[0];
+      const data = hr.map((record) => ({ ...record, ...employee._doc }));
+
+      console.log(data);
+      res.render("deleteEmployee.ejs", { employee: data[0] });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -230,17 +238,26 @@
       if (!employeeId) {
         return res.status(404).json({ message: "Employee Id not found!" });
       }
-
-      const employee = await Employee.findOneAndDelete({
-        employeeId: employeeId,
-      });
+  
+      // Xóa nhân viên khỏi MongoDB
+      const employee = await Employee.findOneAndDelete({ employeeId });
       if (!employee) {
         return res.status(404).json({ message: "Employee not found" });
-      } else {
-        return res.redirect("/api/employee/displayEmployee");
       }
+  
+      // Xóa nhân viên khỏi SQL Server
+      let pool = await sql.connect(dbConfig);
+      await pool.request()
+        .input("Employee_ID", sql.NVarChar, employeeId)
+        .query(`
+          DELETE FROM Personal
+          WHERE Employee_ID = @Employee_ID
+        `);
+  
+        return res.redirect("/api/employee/displayEmployee");
+
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(500)
         .json({ message: "Internal server error", error: error.message });
@@ -303,8 +320,8 @@
   };
 
   function generateEmployeeId() {
-    const timestamp = Date.now().toString().slice(-3); // Lấy 6 chữ số cuối của timestamp
-    const randomNum = Math.floor(Math.random() * 1000); // Số ngẫu nhiên từ 0 đến 999
+    const timestamp = Date.now().toString().slice(-1); // Lấy 6 chữ số cuối của timestamp
+    const randomNum = Math.floor(Math.random() * 10000); // Số ngẫu nhiên từ 0 đến 999
     return `${timestamp}${randomNum}`;
   }
 
