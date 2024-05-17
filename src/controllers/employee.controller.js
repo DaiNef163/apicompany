@@ -303,17 +303,17 @@
   };
 
   function generateEmployeeId() {
-    // Logic để tạo một mã nhân viên duy nhất, ví dụ: sử dụng timestamp hoặc số ngẫu nhiên
-    return Date.now(); // Ví dụ: sử dụng timestamp
+    const timestamp = Date.now().toString().slice(-3); // Lấy 6 chữ số cuối của timestamp
+    const randomNum = Math.floor(Math.random() * 1000); // Số ngẫu nhiên từ 0 đến 999
+    return `${timestamp}${randomNum}`;
   }
 
   export const postCreateEmployee = async (req, res) => {
     try {
       // Tạo một giá trị employeeId duy nhất
-      // const employeeId = generateEmployeeId();
+      const employeeId = generateEmployeeId();
 
       const {
-        employeeId,
         firstName,
         lastName,
         vacationDays,
