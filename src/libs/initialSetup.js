@@ -51,7 +51,7 @@ export const create500Employee = async () => {
   const roleForUser = await Role.find({ name: "user" });
   console.log(roleForUser);
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 500; i++) {
     const newEmployee = await Employee.create({
       employeeId: i,
       firstName: faker.person.firstName(),

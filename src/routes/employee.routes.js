@@ -10,6 +10,7 @@ import {
   deleteEmployee,
   testdisplay,
   postCreateEmployee,
+  displayallUser,
 
 } from "../controllers/employee.controller.js";
 import { isAdmin, verifyToken } from "../middlewares/authJwt.js";
@@ -22,6 +23,7 @@ router.post("/", createEmployee);
 router.get("/", getEmployees);
 router.get("/displayEmployee", displayallEmployee);
 
+router.get("/displayUsers", displayallUser);
 
 router.get("/create", testdisplay);
 router.post("/create-employee",postCreateEmployee)

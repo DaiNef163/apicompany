@@ -249,15 +249,32 @@
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label col-md-2" for="Gender">[Gender]</label>
+                    <label class="control-label col-md-2" for="Gender"
+                      >Gender</label
+                    >
                     <div class="controls">
-                      <input class="span6" id="Gender" type="text" name="Gender" value="<%= employee.Gender %>" />
+                      <select class="span6" id="Gender" name="Gender" value="<%= employee.Gender %>">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label col-md-2" for="Shareholder_Status">[Shareholder_Status]</label>
+                    <label
+                      class="control-label col-md-2"
+                      for="Shareholder_Status"
+                      >Shareholder Status</label
+                    >
                     <div class="controls">
-                      <input class="span6" id="Shareholder_Status" type="text" name="Shareholder_Status" value="<%= employee.Shareholder_Status %>" />
+                      <select
+                        class="span6"
+                        id="Shareholder_Status"
+                        name="Shareholder_Status"
+                        value="<%= employee.Shareholder_Status %>"
+                      >
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
                     </div>
                   </div>
                   <!-- <div class="control-group">

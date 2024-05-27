@@ -3,7 +3,7 @@ import {
   createUser,
   getUsers,
   getUser,
-  displayallUser,
+
   displayDashboard,
   editUser,
   deleteUser,
@@ -21,7 +21,6 @@ const router = Router();
 // router.get("/", [verifyToken, isAdmin, checkExistingUser], getUsers);
 router.post("/", [checkExistingUser], createUser);
 router.get("/", getUsers);
-router.get("/displayUsers", displayallUser);
 router.get("/displayDashboard", displayDashboard);
 router.get("/editUser", editUser);
 router.get("/deleteUser", deleteUser);
